@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('url_visits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('url_id')->constrained('urls')->onDelete('cascade');
+            $table->string('url_id');
+            $table->foreign('url_id')->references('short_code')->on('urls')->onDelete('cascade');
             $table->string('ip_address', 45);
             $table->string('country')->nullable();
             $table->string('region')->nullable();

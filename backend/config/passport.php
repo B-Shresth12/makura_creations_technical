@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'guard' => 'web',
+    'guard' => 'api',
 
     /*
     |--------------------------------------------------------------------------
@@ -70,6 +70,10 @@ return [
     'personal_access_client' => [
         'id' => env('PASSPORT_PERSONAL_ACCESS_CLIENT_ID'),
         'secret' => env('PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET'),
+    ],
+    'password_client' => [
+        'id' => env('PASSPORT_CLIENT_ID'),
+        'secret' => env('PASSPORT_CLIENT_SECRET'),
     ],
 
 ];

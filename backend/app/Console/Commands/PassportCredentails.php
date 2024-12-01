@@ -30,7 +30,7 @@ class PassportCredentails extends Command
     {
         // Get the output from the passport:client command
         $output = Artisan::output(
-            Artisan::call('passport:client --password --name="autentication" --provider="users"')
+            Artisan::call('passport:client --password --name="autentication" --provider=users')
         );
 
         // Extracting Client ID
@@ -40,19 +40,19 @@ class PassportCredentails extends Command
         if (!empty($clientId) && !empty($clientSecret)) {
             $envFile = app()->environmentFilePath();
             $envContent = File::get($envFile);
-            $newEnvContent = str_replace(
-                'PASSPORT_CLIENT_ID=',
-                'PASSPORT_CLIENT_ID=' . $clientId[1],
+            $newEnvContent = preg_replace(
+                '/^PASSPORT_CLIENT_ID=.*$/m', // Match the line starting with PASSPORT_CLIENT_ID=
+                'PASSPORT_CLIENT_ID=' . $clientId[1], // Replace with the new value
                 $envContent
             );
-            $newEnvContent = str_replace(
-                'PASSPORT_CLIENT_SECRET=',
-                'PASSPORT_CLIENT_SECRET=' . $clientSecret[1],
+            $newEnvContent = preg_replace(
+                '/^PASSPORT_CLIENT_SECRET=.*$/m', // Match the line starting with PASSPORT_CLIENT_SSECRET=
+                'PASSPORT_CLIENT_SECRET=' . $clientSecret[1], // Replace with the new value
                 $newEnvContent
             );
 
             // Storing new value in env
-            File::put($envFile, $newEnvContent);
+            file_put_contents('.env', $newEnvContent);
             $this->info("Passport credentails have been added to .env file");
         } else {
             $this->error("Could not extract the client credentials");
