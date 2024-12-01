@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('urls', function (Blueprint $table) {
-            $table->id();
+            $table->string('short_code', 10)->unique()->primary();
             $table->boolean('expired')->default(0);
             $table->text('url');
-            $table->string('short_code', 10)->unique();
             $table->unsignedInteger('hit_count')->default(0);
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+            
+            $table->index('short_code');
         });
     }
 

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Url;
+use App\Observers\UrlObserver;
+use App\Repositories\Url\UrlRepository;
+use App\Repositories\Url\UrlRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(UrlRepositoryInterface::class, UrlRepository::class);
     }
 
     /**
@@ -19,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Url::observe(UrlObserver::class);
+
     }
 }

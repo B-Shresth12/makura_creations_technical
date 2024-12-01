@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use PDO;
-
+use App\Observers\UrlObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+ 
+#[ObservedBy([UrlObserver::class])]
 class Url extends Model
 {
     protected $fillable = [
