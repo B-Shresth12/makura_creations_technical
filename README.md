@@ -24,15 +24,16 @@ Before you begin, ensure you have the following installed:
 Follow these steps to get the application running on your local machine:
 
 1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/yourusername/url-shortener.git
+
+````bash
+git clone https://github.com/yourusername/url-shortener.git
     ```
 2. **Navigate into the project directory**:
 
 ```bash
 
     cd url-shortener
-```
+````
 
 3. **Install dependencies**:
 
