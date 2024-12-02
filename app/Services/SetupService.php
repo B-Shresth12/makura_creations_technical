@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Exception;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -25,6 +26,7 @@ class SetupService
             if (File::exists($envExamplePath)) {
                 File::copy($envExamplePath, $envPath);
                 echo ".env file copied from .env.example\n";
+                Artisan::call("key:generate");
             } else {
                 echo ".env.example file is missing\n";
             }
