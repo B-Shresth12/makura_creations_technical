@@ -31,7 +31,7 @@ git clone https://github.com/yourusername/url-shortener.git
 2. **Navigate into the project directory**:
 
 ```bash
-    cd url-shortener
+cd url-shortener
 ```
 
 3. **Install dependencies**:
