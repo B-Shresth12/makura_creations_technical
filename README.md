@@ -26,12 +26,13 @@ Follow these steps to get the application running on your local machine:
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/yourusername/url-shortener.git
+git clone https://github.com/B-Shresth12/makura_creations_technical.git
 ```
+
 2. **Navigate into the project directory**:
 
 ```bash
-cd url-shortener
+cd makura_creations_technical
 ```
 
 3. **Install dependencies**:
