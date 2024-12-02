@@ -44,7 +44,7 @@ class SetupService
     {
         $newEnvContent = preg_replace(
             '/^APP_NAME=.*$/m',
-            'APP_NAME=' . $name,
+            'APP_NAME="' . $name . '"',
             $this->envContent
         );
 
