@@ -16,6 +16,7 @@ class UrlResource extends JsonResource
     {
         $data =  parent::toArray($request);
         unset($data['updated_at']);
+        $data['expires_at'] = date('Y-m-d', strtotime($data['expires_at']));
         $data['created_at'] = date('Y-m-d', strtotime($data['created_at']));
         return $data;
     }

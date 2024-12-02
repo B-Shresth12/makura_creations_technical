@@ -64,7 +64,8 @@ class UrlService
     public function createShortenLink($requestedUrl, $expiryDate)
     {
         $this->checkUrl($requestedUrl);
-        $dbUrl = Url::where('url', $requestedUrl)->first();
+        $dbUrl = $this->urlRepository->searchByUrl($requestedUrl);
+
         if (@$dbUrl) {
             if ($dbUrl->expired) {
                 $url = $this->urlRepository->updateUrl([
@@ -110,16 +111,16 @@ class UrlService
     {
         // admin permission to run this
         // validate url
-        // if (!filter_var($url, FILTER_VALIDATE_URL)) {
-        //     return 'The provided URL is not valid.';
-        // }
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return 'The provided URL is not valid.';
+        }
 
-        // //check if the url is online
-        // try {
-        //     $response = Http::head($url);
-        // } catch (\Exception $e) {
-        //     return "Url is not online";
-        // }
+        //check if the url is online
+        try {
+            $response = Http::head($url);
+        } catch (\Exception $e) {
+            return "Url is not online";
+        }
 
         return null;
     }
@@ -219,7 +220,18 @@ class UrlService
         foreach ($urls as $url) {
             $this->urlRepository->updateUrl([
                 "expired" => 1,
-            ],$url->short_code);
+            ], $url->short_code);
         }
+    }
+
+    public function seachByUrl($requestUrl)
+    {
+        $url = $this->urlRepository->searchByUrl($requestUrl);
+
+        return response()->json([
+            "statusCode" => 200,
+            'message' => "URL data has been fetched",
+            "data" => UrlResource::make($url)
+        ]);
     }
 }

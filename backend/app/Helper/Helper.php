@@ -14,7 +14,7 @@ class Helper
      * @param string
      * @return string
      */
-    static function normalizeUr($url)
+    static function normalizeUrl($url)
     {
         $url = preg_replace('#^https?://#', '', $url); //removing protocol
         $url = preg_replace('#^www\.#', '', $url); //removing protocol

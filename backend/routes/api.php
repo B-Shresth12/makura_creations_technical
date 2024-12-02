@@ -17,8 +17,8 @@ Route::prefix('v1')->middleware('api')->namespace('App\Http\Controllers\Api')->g
             Route::get('/', 'UrlController@index');
             Route::delete('/delete/{shortCode}', 'UrlController@destroy');
             Route::get('show/{shortCode}', 'UrlController@show');
-            Route::get('test', 'UrlController@test');
         });
+        Route::post("/lookup", "UrlController@lookUp");
+        Route::post('/search-short-code', 'UrlController@search');
     });
 });
-

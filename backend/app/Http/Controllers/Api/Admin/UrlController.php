@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UrlResource;
 use App\Services\UrlService;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,21 @@ class UrlController extends Controller
         return $this->urlService->deleteUrl($shortCode);
     }
 
-    public function test(){
-        return $this->urlService->checkExpiredUrl();
+    public function lookUp(Request $request)
+    {
+        $request->validate([
+            'shortCode' => "required|exists:urls,short_code",
+        ]);
+
+        return $this->urlService->showUrl($request->shortCode);
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            "url" => "required|url"
+        ]);
+
+        return $this->urlService->seachByUrl(Helper::normalizeUrl($request->url));
     }
 }

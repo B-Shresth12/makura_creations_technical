@@ -18,7 +18,7 @@ class UrlController extends Controller
     {
         $data = $request->validated();
         return $this->urlService->createShortenLink(
-            Helper::normalizeUr($data['url']),
+            Helper::normalizeUrl($data['url']),
             $data['expires_at']
         );
 

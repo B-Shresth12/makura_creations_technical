@@ -12,7 +12,7 @@ class UrlRepository implements UrlRepositoryInterface
   public function getAll($filter = [], $page = 10)
   {
     $urls = Url::filter($filter);
-    if($page == 0){
+    if ($page == 0) {
       return $urls->get();
     }
     return $urls->paginate($page);
@@ -52,5 +52,10 @@ class UrlRepository implements UrlRepositoryInterface
   public function deleteUrl(Url $url)
   {
     $url->delete();
+  }
+
+  public function searchByUrl($url)
+  {
+    return Url::where('url', $url)->first();
   }
 }

@@ -12,4 +12,6 @@ interface UrlRepositoryInterface
 
     public function deleteUrl(Url $url);
     public function updateUrl($data, $shortCode);
+
+    public function searchByUrl($url);
 }
