@@ -6,6 +6,8 @@ use App\Models\Url;
 use App\Observers\UrlObserver;
 use App\Repositories\Url\UrlRepository;
 use App\Repositories\Url\UrlRepositoryInterface;
+use App\Repositories\Visitor\VisitorRepository;
+use App\Repositories\Visitor\VisitorRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UrlRepositoryInterface::class, UrlRepository::class);
-        // $this->app->bind(UrlRepositoryInterface::class, UrlRepository::class);
+        $this->app->bind(VisitorRepositoryInterface::class, VisitorRepository::class);
     }
 
     /**
@@ -26,9 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Url::observe(UrlObserver::class);
-        // Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
-        // $this->registerPolicies();
         Passport::enablePasswordGrant();
-
+        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
     }
 }

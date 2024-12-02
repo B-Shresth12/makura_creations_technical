@@ -23,6 +23,7 @@ class CreateLinkRequest extends FormRequest
     {
         return [
             "url" => 'required|url',
+            'expires_at' => 'nullable|date'
         ];
     }
 }

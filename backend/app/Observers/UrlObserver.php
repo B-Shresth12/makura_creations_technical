@@ -12,7 +12,11 @@ class UrlObserver
      */
     public function created(Url $url): void
     {
-        Redis::set($url->short_code, $url->url);
+        $data = [
+            "expired" => 0,
+            "url" => $url->url
+        ];
+        Redis::set($url->short_code, json_encode($data));
     }
 
     /**
@@ -20,7 +24,11 @@ class UrlObserver
      */
     public function updated(Url $url): void
     {
-        //
+        $data = [
+            "expired" => $url->expired,
+            "url" => $url->url
+        ];
+        Redis::set($url->short_code, json_encode($data));
     }
 
     /**
@@ -28,22 +36,6 @@ class UrlObserver
      */
     public function deleted(Url $url): void
     {
-        //
-    }
-
-    /**
-     * Handle the Url "restored" event.
-     */
-    public function restored(Url $url): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Url "force deleted" event.
-     */
-    public function forceDeleted(Url $url): void
-    {
-        //
+        Redis::del($url->shortCode);
     }
 }

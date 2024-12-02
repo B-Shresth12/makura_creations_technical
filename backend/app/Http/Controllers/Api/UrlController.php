@@ -17,21 +17,16 @@ class UrlController extends Controller
     public function createShortenLink(CreateLinkRequest $request)
     {
         $data = $request->validated();
-        $url = $this->urlService->createShortenLink(
-            Helper::normalizeUr($data['url'])
+        return $this->urlService->createShortenLink(
+            Helper::normalizeUr($data['url']),
+            $data['expires_at']
         );
 
-        if ($url) {
-            return response()->json([
-                'statusCode' => 200,
-                'message' => "Url has been shortened",
-                'shortCode' => $url->short_code,
-            ]);
-        }
+        
+    }
 
-        return response()->json([
-            'statusCode' => 500,
-            'message' => "Something went wrong. Please try again later"
-        ]);
+    public function redirect($shortCode, Request $request)
+    {
+        return $this->urlService->redirectShortCode($shortCode, $request->ip);
     }
 }

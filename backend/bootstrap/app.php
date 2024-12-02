@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // $middleware->append()
     })
     ->withExceptions(function (Exceptions $exceptions) {
         if (request()->is('api/*')) {
@@ -41,7 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ], 500);
                 } else {
                     // Log the error message for production
-                    \Log::error("SERVER ERROR: {$exception->getMessage()} in {$exception->getFile()} on line {$exception->getLine()}");
+                    Log::error("SERVER ERROR: {$exception->getMessage()} in {$exception->getFile()} on line {$exception->getLine()}");
 
                     return response()->json([
                         'statusCode' => 500,

@@ -34,9 +34,11 @@ class PassportCredentails extends Command
         );
 
         // Extracting Client ID
-        preg_match('/Client ID\s+\.+\s+([a-f0-9\-]{36})/', $output, $clientId);
+        preg_match('/Client ID\s+\.*\s+([a-f0-9\-]{36})/', $output, $clientId);
+
         // Extracting Client Secret
-        preg_match('/Client secret\s+\.+\s+(\S+)/', $output, $clientSecret);
+        preg_match('/Client secret\s+\.*\s+(\S+)/', $output, $clientSecret);
+
         if (!empty($clientId) && !empty($clientSecret)) {
             $envFile = app()->environmentFilePath();
             $envContent = File::get($envFile);
